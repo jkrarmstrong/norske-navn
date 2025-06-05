@@ -1,0 +1,12 @@
+# Virtuelt miljø
+venv/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# OS-filer
+.DS_Store

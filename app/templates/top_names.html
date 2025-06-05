@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Names | Top 10</title>
+</head>
+<body>
+    <h1>Top 10 Names for a Year</h1>
+
+    <form method="post">
+        <input type="number" name="år" placeholder="e.g. 2020" required>
+        <button type="submit">Show</button>
+    </form>
+
+    {% if feilmelding %}
+        <p>{{ feilmelding }}</p>
+    {% endif %}
+
+    {% if plot_path %}
+        <h2>Results:</h2>
+        <iframe src="{{ url_for('static', filename=plot_path) }}" width="100%" height="600" frameborder="0"></iframe>
+    {% endif %}
+</body>
+</html>
