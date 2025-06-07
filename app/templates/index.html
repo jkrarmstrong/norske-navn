@@ -4,11 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Names | Home</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- CSS files -->
+    <link rel="stylesheet" href="../static/css/main.css">
+
 </head>
+
 <body>
-    <div>
-        <h1>HEI</h1>
-    </div>
+    <!-- Header section -->
+    <header class="section header">
+        <div class="header-logo">
+            <h2>Logo</h2>
+            <div class="dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+        <div class="header-about">
+            <h2>About</h2>
+            <div class="dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main>
+        <!-- Intro section -->
+        <section class="section intro">
+            <div class="intro-headline">
+                <h1>
+                    Name
+                    <br>
+                    lab.
+                </h1>
+            </div>
+            <div class="intro-description">
+                <h2>
+                    Discover which names 
+                    <br>
+                    are rising, fading
+                    <br>
+                    or making a comeback!
+                </h2>
+            </div>
+        </section>
+
+        <!-- Search section -->
+        <section class="section search">
+            <form class="input-and-button-container">
+                <input type="text" id="name-search" name="name-search" class="search-input" placeholder="Search for a name" required>
+                <button type="submit" class="search-button">Go!</button>
+            </form>
+        </section>
+    </main>
     
 </body>
+
 </html>

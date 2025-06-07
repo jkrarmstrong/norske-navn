@@ -1,0 +1,19 @@
+/* Imports */
+@import url("base.css");
+@import url("header.css");
+@import url("search.css");
+
+/* Main intro section */
+.section.intro {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8rem 20rem 4rem 4rem;
+}
+
+.section.intro h1 {
+    font-size: 5rem;
+    line-height: 1;
+}
+
+
