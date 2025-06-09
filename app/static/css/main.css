@@ -3,17 +3,71 @@
 @import url("header.css");
 @import url("search.css");
 
-/* Main intro section */
+
+/* Reusable content wrapper */
+.content-wrapper {
+    margin-left: 4rem;
+    margin-right: 16rem;
+}
+
+/* Intro section */
 .section.intro {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 8rem 20rem 4rem 4rem;
+    margin-top: 8rem;
+    margin-bottom: 4rem;
 }
 
 .section.intro h1 {
     font-size: 5rem;
     line-height: 1;
 }
+
+.visual-button-container {
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.visual-button {
+    padding: 0.5rem 0.5rem;
+    border: 2px solid white;
+    background-color: inherit;
+    color: inherit;
+    border-radius: 12px;
+    font-family: inherit;
+    transition: all 0.2s ease-in-out;
+}
+
+.visual-button:hover {
+    background-color: white;
+    color: black;
+}
+
+.visual-button.active {
+    background-color: white;
+    color: black;
+}
+
+/* Container and button for year composer */
+.year-input-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.year-input-container input[type="number"] {
+    padding: 1rem 1rem;
+    font-size: 1rem;
+    border: 2px solid green;
+}
+
+
+
+
 
 
