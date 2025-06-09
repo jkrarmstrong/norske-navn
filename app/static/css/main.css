@@ -92,3 +92,11 @@
 .year-input-group input:focus {
   outline: none;
 }
+
+/* Styling for charts container */
+#charts-container {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}

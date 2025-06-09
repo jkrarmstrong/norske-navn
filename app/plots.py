@@ -5,7 +5,6 @@ import pandas as pd
 import os
 
 
-
 def name_trend_chart(df, name, output_file="app/static/plot.html"):
     """
     Generates a line plot showing the popularity of a given name over time.

@@ -1,8 +1,9 @@
 
-// Dette fungerer. Må bare sette det opp i mot Flask når jeg er ferdig.
+// Select the clear button and the search input field
 const clearBtn = document.querySelector(".clear-button");
 const input = document.querySelector(".search-input");
 
+// Check if both elements exist before attaching event listener
 if(clearBtn && input) {
     clearBtn.addEventListener("click", () => {
         input.value = "";
@@ -10,7 +11,6 @@ if(clearBtn && input) {
     });
 }
 
-// This also works.
 // Toggle .active on visual buttons and update year inputs
 const buttons = document.querySelectorAll(".visual-button");
 const yearInputsContainer = document.getElementById("year-inputs");
@@ -70,7 +70,8 @@ function updateYearInputs() {
             yearInput.placeholder = "Year";             // Placeholder shown in input field
             yearInput.name = `${visual}-year`;          // Name used when submitting form
             group.appendChild(yearInput);
-            } else if (config.years === 2) {
+        } 
+        else if (config.years === 2) {
             const startInput = document.createElement("input");
             startInput.type = "number";
             startInput.placeholder = "Start year";
@@ -83,9 +84,53 @@ function updateYearInputs() {
 
             group.appendChild(startInput);
             group.appendChild(endInput);
-            }
-            
-            // Add entire input group to the page
-            yearInputsContainer.appendChild(group);
-        });
-    }
+        }
+        // Add entire input group to the page
+        yearInputsContainer.appendChild(group);
+    });
+}
+
+document.getElementById("search-form").addEventListener("submit", (e) => {
+  e.preventDefault(); // Prevent traditional form reload
+
+  const formData = new FormData();
+
+  // Get name input value
+  const name = document.querySelector("#name-search").value;
+  formData.append("name-search", name);
+
+  // Collect active graph types
+  const selected = Array.from(document.querySelectorAll(".visual-button.active"))
+    .map(btn => btn.dataset.visual);
+  selected.forEach(g => formData.append("selected-graphs[]", g));
+
+  // Optional year inputs
+  const year = document.querySelector("input[name$='year']");
+  if (year) formData.append("year", year.value);
+
+  const startYear = document.querySelector("input[name$='start-year']");
+  if (startYear) formData.append("start-year", startYear.value);
+
+  const endYear = document.querySelector("input[name$='end-year']");
+  if (endYear) formData.append("end-year", endYear.value);
+
+  // Send request to Flask
+  fetch("/generate_charts", {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("charts-container");
+    container.innerHTML = ""; // Clear previous results
+
+    data.charts.forEach(filename => {
+      const iframe = document.createElement("iframe");
+      iframe.src = `/static/${filename}`;
+      iframe.width = "100%";
+      iframe.height = "500";
+      iframe.style.border = "none";
+      container.appendChild(iframe);
+    });
+  });
+});

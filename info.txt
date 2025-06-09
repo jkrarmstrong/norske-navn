@@ -1,4 +1,0 @@
-TO-DO:
-
-1: Gjøre slik at JS-script fungerer med Flask
-    - Per nå er det brukt uten Flask (i.e. at JS-scriptet ligger rett i HTML-filen)

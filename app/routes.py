@@ -1,5 +1,5 @@
 # --- Imports ---
-from flask import render_template, request
+from flask import render_template, request, jsonify
 from app import app
 from app.plots import *
 from app.data import df
@@ -11,6 +11,44 @@ from app.data import df
 @app.route("/")
 def index():
     return render_template("index.html")
+
+
+@app.route("/generate_charts", methods=["POST"])
+def generate_charts():
+    # Extract data from frontend
+    name = request.form.get("name-search", "").strip()
+    selected_graphs = request.form.getlist("selected-graphs[]")
+    year = request.form.get("year")
+    start_year = request.form.get("start-year")
+    end_year = request.form.get("end-year")
+
+    # List will store the filnames of generated charts
+    chart_files = []
+
+    # Loop through selected graph types and generate charts
+    for graph in selected_graphs:
+        if graph == "trend" and name:
+            if name_trend_chart(df, name):
+                chart_files.append("plot.html")
+
+        elif graph == "top10" and year:
+            if top_names_chart(df, int(year)):
+                chart_files.append("top_names.html")
+
+        elif graph == "rising" and start_year and end_year:
+            if fastest_growing_names_chart(df, int(start_year), int(end_year)):
+                chart_files.append("fastest_growth.html")
+
+        elif graph == "total":
+            if named_individuals_chart(df):
+                chart_files.append("named_individuals.html")
+
+        elif graph == "prefix" and name:
+            if starts_with_chart(df, name, int(year) if year else None):
+                chart_files.append("starts_with.html")
+
+    # Return list of generated chart filenames as JSON
+    return jsonify({"charts": chart_files})
 
 
 @app.route("/name_trend", methods=["GET", "POST"])
