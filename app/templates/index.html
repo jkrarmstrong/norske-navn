@@ -73,20 +73,27 @@
         <section class="section visual-nav content-wrapper">
             <div class="visual-button-container">
                 <button class="visual-button active" data-visual="trend">Trend Over Time</button>
-                <button class="visual-button" data-visual="trend">Top 10 Names</button>
-                <button class="visual-button" data-visual="trend">Fastest Rising Names</button>
-                <button class="visual-button" data-visual="trend">Names Starting With ...</button>
+                <button class="visual-button" data-visual="top10">Top 10 Names</button>
+                <button class="visual-button" data-visual="rising">Fastest Rising Names</button>
+                <button class="visual-button" data-visual="total">Total Named Individuals</button>
+                <button class="visual-button" data-visual="prefix">Names Starting With ...</button>
             </div>
         </section>
 
         <!-- Year control section -->
         <section class="section year-controls content-wrapper">
-            <div class="year-inputs-container" id="year-inputs">
-                <!-- Her fyller vi inn -->
+            <div id="year-inputs">
+                <!-- JavaScript handles this logic -->
+            </div>
+        </section>
+
+        <!-- Results section -->
+        <section class="setion chart-results content-wrapper">
+            <div id="charts-container">
+                <!-- Flask will return HTML for one or more charts here -->
             </div>
         </section>
     </main>
-
 
 <!-- JS scripts -->
 <!-- <script src="{{ url_for('static', filename='js/search.js') }}" defer></script> -->
@@ -104,18 +111,82 @@
     }
 
     // Dette fungerer også.
-    // Toggle .active på visual-knapper
-    const buttons = document.querySelectorAll(".visual-button")
+    // Toggle .active på visual-knapper og oppdater år-input
+    const buttons = document.querySelectorAll(".visual-button");
+    const yearInputsContainer = document.getElementById("year-inputs");
+
+    const graphConfig = {
+        trend: { years: 0 },
+        top10: { years: 1 },
+        rising: { years: 2 },
+        total: { years: 0 },
+        prefix: { years: 1 },
+    };
+
+    // Chart info
+    const graphDescriptions = {
+        trend: "Shows how the popularity of a specific name has changed over time.",
+        top10: "Displays the 10 most used names in the selected year.",
+        rising: "Shows the names with the greatest increase in usage between two years.",
+        total: "Displays total number of people named (with any name) per year.",
+        prefix: "Shows the most common names that begin with a specific letter or letters.",
+    };
 
     buttons.forEach(button => {
         button.addEventListener("click", () => {
-            button.classList.toggle("active");
+        button.classList.toggle("active");
+        updateYearInputs();
         });
     });
 
-    // Dette er for å velge år.
-    
+    function updateYearInputs() {
+        yearInputsContainer.innerHTML = "";
+        
+        const activeButtons = Array.from(document.querySelectorAll(".visual-button.active"));
+  
+        activeButtons.forEach(button => {
+            const visual = button.dataset.visual;
+            const config = graphConfig[visual];
+
+            const group = document.createElement("div");
+            group.classList.add("year-input-group");
+
+            const heading = document.createElement("h3");
+            heading.textContent = button.textContent;
+            group.appendChild(heading);
+
+            const description = document.createElement("p");
+            description.textContent = graphDescriptions[visual]; // Hent tekst fra dictionary
+            group.appendChild(description);
+
+
+            if (config.years === 1) {
+                const yearInput = document.createElement("input");
+                yearInput.type = "number";
+                yearInput.placeholder = "Year";
+                yearInput.name = `${visual}-year`;
+                group.appendChild(yearInput);
+                } else if (config.years === 2) {
+                const startInput = document.createElement("input");
+                startInput.type = "number";
+                startInput.placeholder = "Start year";
+                startInput.name = `${visual}-start-year`;
+                
+                const endInput = document.createElement("input");
+                endInput.type = "number";
+                endInput.placeholder = "End year";
+                endInput.name = `${visual}-end-year`;
+
+                group.appendChild(startInput);
+                group.appendChild(endInput);
+                }
+
+                yearInputsContainer.appendChild(group);
+            });
+        }
+
 </script>
+
 </body>
 
 </html>

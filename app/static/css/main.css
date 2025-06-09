@@ -52,22 +52,43 @@
     color: black;
 }
 
-/* Container and button for year composer */
-.year-input-container {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
+/* Section for graph config with years */
+.year-input-group {
+  border: 1px solid white;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-top: 1.3rem;
+  background-color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.5rem;
+  min-width: 250px;
 }
 
-.year-input-container input[type="number"] {
-    padding: 1rem 1rem;
-    font-size: 1rem;
-    border: 2px solid green;
+.year-input-group h3 {
+  margin-bottom: 0.5rem;
+  color: inherit;
+}
+
+.year-input-group p {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin-bottom: 0.5rem;
+  font-style: italic;
 }
 
 
+.year-input-group input[type="number"] {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: 2px solid #850b0b;
+  border-radius: 8px;
+  width: 100%;
+  background-color: inherit;
+  color: white;
+}
 
-
-
-
+.year-input-group input:focus {
+  outline: none;
+}
