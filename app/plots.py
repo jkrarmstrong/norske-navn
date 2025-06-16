@@ -5,6 +5,9 @@ import pandas as pd
 import os
 
 
+# --- Global color ---
+PRIMARY_COLOR = "#F4D03F"
+
 def name_trend_chart(df, name, output_file="app/static/plot.html"):
     """
     Generates a line plot showing the popularity of a given name over time.
@@ -22,6 +25,20 @@ def name_trend_chart(df, name, output_file="app/static/plot.html"):
         markers=True,
         title=f"Name trend for: {name}",
         labels={"år": "Year", "antall": "Count"}
+    )
+
+    # Styling
+    fig.update_traces(
+        line=dict(color=PRIMARY_COLOR, width=3),
+        marker=dict(size=8, color=PRIMARY_COLOR)
+    )
+
+    fig.update_layout(
+        plot_bgcolor="black",
+        paper_bgcolor="black",
+        font=dict(color="white", family="Arial", size=14),
+        title_font=dict(size=22),
+        margin=dict(t=50, b=40, l=40, r=40)
     )
 
     pio.write_html(fig, file=output_file, auto_open=False)
@@ -52,8 +69,21 @@ def top_names_chart(df, year, output_file="app/static/top_names.html", n=10):
         labels={"fornavn": "Name", "antall": "Count"}
     )
 
-    # Move text outside pillars
-    fig.update_traces(textposition="outside")
+    # Style the bars
+    fig.update_traces(
+        marker_color=PRIMARY_COLOR,
+        textposition="outside",
+        textfont_size=14
+    )
+
+    # Layout styling
+    fig.update_layout(
+        plot_bgcolor="black",
+        paper_bgcolor="black",
+        font=dict(color="white", family="Arial", size=14),
+        title_font=dict(size=22),
+        margin=dict(t=60, l=40, r=40, b=40)
+    )
 
     # Store chart and return True
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
@@ -98,7 +128,20 @@ def fastest_growing_names_chart(df, year_from, year_to, output_file="app/static/
         labels={"fornavn": "Name", "growth": "Growth"}
     )
 
-    fig.update_traces(textposition="outside")
+    # Styling
+    fig.update_traces(
+        marker_color=PRIMARY_COLOR,
+        textposition="outside",
+        textfont_size=14
+    )
+
+    fig.update_layout(
+        plot_bgcolor="black",
+        paper_bgcolor="black",
+        font=dict(color="white", family="Arial", size=14),
+        title_font=dict(size=22),
+        margin=dict(t=60, l=40, r=40, b=40)
+    )
 
     # Store chart and return True
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
@@ -121,6 +164,20 @@ def named_individuals_chart(df, output_file="app/static/named_individuals.html")
         markers=True,
         title="Named individuals per year",
         labels={"år": "Year", "antall": "Total count"}
+    )
+
+    # Styling
+    fig.update_traces(
+        line=dict(color=PRIMARY_COLOR, width=3),
+        marker=dict(size=8, color=PRIMARY_COLOR)
+    )
+
+    fig.update_layout(
+        plot_bgcolor="black",
+        paper_bgcolor="black",
+        font=dict(color="white", family="Arial", size=14),
+        title_font=dict(size=22),
+        margin=dict(t=60, l=40, r=40, b=40)
     )
 
     # Store chart and return True
@@ -159,7 +216,20 @@ def starts_with_chart(df, start_str, year=None, output_file="app/static/starts_w
         labels={"fornavn": "Name", "antall": "Count"}
     )
 
-    fig.update_traces(textposition="outside")
+    # Styling
+    fig.update_traces(
+        marker_color=PRIMARY_COLOR,
+        textposition="outside",
+        textfont_size=14
+    )
+
+    fig.update_layout(
+        plot_bgcolor="black",
+        paper_bgcolor="black",
+        font=dict(color="white", family="Arial", size=14),
+        title_font=dict(size=22),
+        margin=dict(t=60, l=40, r=40, b=40)
+    )
 
     # Store dchart
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
